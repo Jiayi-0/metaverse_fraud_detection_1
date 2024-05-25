@@ -53,8 +53,6 @@ with col2:
     amount = st.number_input('Transaction Amount')
 with col1:
     transaction_type = st.selectbox('Transaction Type', ('phishing', 'purchase', 'sale', 'scam', 'transfer'))
-with col2:
-    session_duration = st.number_input('Time taken of each activity sessions (minutes)')
 with col1:
     login_frequency = st.number_input('Login Frequency',step=1)
 with col2:
@@ -74,7 +72,6 @@ if st.button('Predict Risk'):
     input_data = pd.DataFrame({
         'amount': [amount],
         'login_frequency': [login_frequency],
-        'session_duration': [session_duration],
         'risk_score': [risk_score],
         'month':[month],
         'day_of_week': [day_of_week],
@@ -93,7 +90,7 @@ if st.button('Predict Risk'):
     input_data = input_data.reindex(columns=encoder_columns, fill_value=0)
     
     # Scale the numerical features
-    numerical_features = ['amount', 'login_frequency', 'session_duration', 'risk_score']
+    numerical_features = ['amount', 'login_frequency', 'risk_score']
 
     input_data[numerical_features] = scaler.transform(input_data[numerical_features])
 
